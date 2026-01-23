@@ -111,4 +111,13 @@ fn main() {
         "[2025-06-15 14:40:20] ERROR: Failed to fetch /api/orders/00000",
         "!!!!",
     ];
+
+    let re = Regex::new(r"\[(\d{4}-\d{2}-\d{2}\d{2}:\d{2}:\d{2})\] (\w+):.*?/api/(\w+)/(\d+)").unwrap();
+
+    let entries: Vec<_> = server_logs
+        .into_iter()
+        .filter_map(|log| re.find(log))
+        .collect();
+
+    println!("{entries:#?}");
 }
