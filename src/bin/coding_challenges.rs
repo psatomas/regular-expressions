@@ -112,7 +112,7 @@ fn main() {
         "!!!!",
     ];
 
-    let re = Regex::new(r"\[(\d{4}-\d{2}-\d{2}\d{2}:\d{2}:\d{2})\] (\w+):.*?/api/(\w+)/(\d+)").unwrap();
+    let re = regex::Regex::new(r"\[(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})\] (\w+):.*?/api/(\w+)/(\d+)").unwrap();
 
     let entries: Vec<_> = server_logs
         .into_iter()
