@@ -112,11 +112,13 @@ fn main() {
         "!!!!",
     ];
 
-    let re = regex::Regex::new(r"\[(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})\] (\w+):.*?/api/(\w+)/(\d+)").unwrap();
+    let re = regex::Regex::new(r"\[(\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2})\]\s(?<category>INFO|ERROR|DEBUG|WARN):\s.+/api/(?<endpoint>\w+)/(?<id>\d+)"
+    )
+    .unwrap();
 
     let entries: Vec<_> = server_logs
         .into_iter()
-        .filter_map(|log| re.find(log))
+        .filter_map(|log| re.captures(log))
         .collect();
 
     println!("{entries:#?}");
