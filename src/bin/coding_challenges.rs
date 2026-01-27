@@ -119,6 +119,12 @@ fn main() {
     let entries: Vec<_> = server_logs
         .into_iter()
         .filter_map(|log| re.captures(log))
+        .map(|cap| LogEntry {
+            timestamp: cap[1].to_string(),
+            category: cap["category"].to_string(),
+            endpoint: cap["endpoint"].to_string(),
+            id: cap["id"].to_string(),
+        })
         .collect();
 
     println!("{entries:#?}");
